@@ -1,2 +1,2 @@
-# CasoEstudioCS
-Caso de estudio de Cliente Servidor
+# CasoEstudio1CS
+Caso de estudio número 1 de Cliente Servidor
