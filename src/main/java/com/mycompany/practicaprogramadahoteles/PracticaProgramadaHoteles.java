@@ -1,7 +1,7 @@
 /***********************************************
 * Universidad Fidelitas                        *
 * Programacion Cliente Servidor Concurrente    *
-* @author isaac                                *
+* @author isaac, javier, mason, gabriel        *
 * Fecha: 02/02/2024                            *
 * Nombre: ClaseSemana3                         *
 ************************************************/
@@ -65,8 +65,9 @@ public class PracticaProgramadaHoteles {
                     int numHabitacion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion: "));
                     Hotel.reservarManualmente(hoteles, persona, numHotel, numTorre, numPiso, numHabitacion);
                     }catch(NumberFormatException e){  
+                        JOptionPane.showMessageDialog(null, "Datos ingresados erroneamente!\n\nVolviendo al menu principal", "ERROR", JOptionPane.ERROR_MESSAGE);
                     }finally{
-                        JOptionPane.showMessageDialog(null, "Error al ingresar los datos!\n\nVolviendo al Menu Principal", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
                     }
                     break;
                 case 5:

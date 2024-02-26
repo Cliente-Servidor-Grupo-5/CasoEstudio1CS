@@ -1,7 +1,7 @@
 /***********************************************
 * Universidad Fidelitas                        *
 * Programacion Cliente Servidor Concurrente    *
-* @author isaac                                *
+* @author isaac, javier, mason, gabriel        *
 * Fecha: 02/02/2024                            *
 * Nombre: ClaseSemana3                         *
 ************************************************/

@@ -1,7 +1,7 @@
 /***********************************************
 * Universidad Fidelitas                        *
 * Programacion Cliente Servidor Concurrente    *
-* @author isaac                                *
+* @author isaac, javier, mason, gabriel        *
 * Fecha: 02/02/2024                            *
 * Nombre: ClaseSemana3                         *
 ************************************************/
@@ -39,16 +39,17 @@ public class Persona {
     //Se crea un metodo para solicitar los datos de la persona
      public Persona ingresarDatosPersona() {
         JOptionPane.showMessageDialog(null,"Ingrese los datos de la persona:","DATOS",JOptionPane.INFORMATION_MESSAGE);
-        String nombre = JOptionPane.showInputDialog("Inserte el nombre de la persona:");
-        String nacionalidad = JOptionPane.showInputDialog("Inserte la nacionalidad de la persona:");
-        String apellidos = JOptionPane.showInputDialog("Inserte el primer y segundo de la persona:");
-        String correo = JOptionPane.showInputDialog("Ingrese el correo de la persona: ");
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la persona:");
+        String nacionalidad = JOptionPane.showInputDialog("Ingrese la nacionalidad de la persona:");
+        String apellidos = JOptionPane.showInputDialog("Ingrese el primer y segundo apellido de la persona:");
+        String correo = JOptionPane.showInputDialog("Ingrese el correo electrónico de la persona: ");
         try{
         int cedula = Integer.parseInt(JOptionPane.showInputDialog("Digite la cedula de la persona: "));
         int telefono = Integer.parseInt(JOptionPane.showInputDialog("Digite el numero de telefono de la persona: "));
         }catch(NumberFormatException e){
-        }finally{
             JOptionPane.showMessageDialog(null, "Datos ingresados erroneamente!\n\nVolviendo al menu principal", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }finally{
+            JOptionPane.showMessageDialog(null, "Pasando al siguiente módulo.");
         }
         
         
