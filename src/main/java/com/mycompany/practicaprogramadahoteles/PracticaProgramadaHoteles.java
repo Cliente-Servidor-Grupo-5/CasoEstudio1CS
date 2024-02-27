@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 public class PracticaProgramadaHoteles {
 
     public static void main(String[] args) {
+        String menu;
         //Se crea una instancia de hotel
         Hotel h = new Hotel();
         //Se crea una instancia de persona
@@ -30,13 +31,9 @@ public class PracticaProgramadaHoteles {
         int opcion;
         do{
             //Se imprimen las diferentes opciones a elegir
-            System.out.println("1. Listar todos los hoteles de la cadena");
-            System.out.println("2. Listar habitaciones disponibles por hotel");
-            System.out.println("3. Registrar reservacion a una persona automaticamente");
-            System.out.println("4. Registrar reservacion a una persona manualmente");
-            System.out.println("5. Salir");
-            
-            opcion = Integer.parseInt(JOptionPane.showInputDialog("Digite la opcion que desea realizar: "));
+            menu = "1. Listar todos los hoteles de la cadena\n2. Listar habitaciones disponibles por hotel\n3. Registrar reservacion a una persona automaticamente\n4. Registrar reservacion a una persona manualmente\n5. Salir";
+
+            opcion = Integer.parseInt(JOptionPane.showInputDialog("Digite la opcion que desea realizar: \n"+menu));
             //Dentro del switch se llama a los metodos necesarios para realizar cada una de las operaciones
             switch (opcion) {
                 case 1:

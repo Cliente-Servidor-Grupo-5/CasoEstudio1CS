@@ -33,28 +33,36 @@ public class Hotel {
     }
 
     public static void listarHabitacionesDisponibles(Hotel[] hoteles) {
-        //Utiliza un for each para recorrer el array hoteles
+        // Utiliza un for each para recorrer el array de hoteles
         for (Hotel hotel : hoteles) {
-            //Imprime el nombre del hotel
+            // Imprime el nombre del hotel
             System.out.println("Hotel: " + hotel.nombre);
-            //Este bucle recorre cada torre en el hotel actual
+            // Este bucle recorre cada torre en el hotel actual
             for (int i = 0; i < hotel.torres.length; i++) {
-                //Este bucle recorre itera cada piso de la torre
+                // Imprime el número de torre
+                System.out.println("Torre " + (i + 1) + ":");
+                // Este bucle recorre cada piso de la torre
                 for (int j = 0; j < hotel.torres[i].pisos.length; j++) {
-                    //Esta bucle recorre cada habitacion
+                    // Este bucle recorre cada habitación del piso
                     for (int k = 0; k < hotel.torres[i].pisos[j].habitaciones.length; k++) {
-                        //Obtiene la referencia de la habitacion actual
+                        // Obtiene la referencia de la habitación actual
                         Habitacion habitacion = hotel.torres[i].pisos[j].habitaciones[k];
-                        //Verifica si la habitacion esta disponible
+                        // Imprime la representación visual de la habitación
                         if (habitacion.disponible) {
-                            System.out.println("Torre: " + (i + 1) + ", Piso: " + (j + 1)
-                                    + ", Habitación: " + (k + 1) + " disponible en Hotel " + hotel.nombre);
+                            System.out.print("[ ]"); // Habitación disponible
+                        } else {
+                            System.out.print("[X]"); // Habitación ocupada
                         }
                     }
+                    // Nueva línea después de imprimir todas las habitaciones de un piso
+                    System.out.println();
                 }
+                // Nueva línea después de imprimir todas las habitaciones de una torre
+                System.out.println();
             }
         }
     }
+
 
     public static void reservarAutomaticamente(Hotel[] hoteles, Persona persona) {
         //Este bucle itera sobre cada hotel
