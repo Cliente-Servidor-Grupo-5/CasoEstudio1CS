@@ -34,7 +34,6 @@ public class Hotel {
         }
     }
 
-
     public static void submenu1(Hotel[] hoteles) {
         String menu;
         int opcion;
