@@ -31,7 +31,16 @@ public class PracticaProgramadaHoteles {
         int opcion;
         do{
             //Se imprimen las diferentes opciones a elegir
-            menu = "1. Listar todos los hoteles de la cadena\n2. Listar habitaciones disponibles por hotel\n3. Registrar reservacion a una persona automaticamente\n4. Registrar reservacion a una persona manualmente\n5. Salir";
+            menu = """
+                   1. Listar todos los hoteles de la cadena
+                   2. Listar habitaciones disponibles por hotel
+                   3. Registrar reservación a una persona automáticamente
+                   4. Registrar reservación a una persona manualmente
+                   5. Eliminar reservación de una persona
+                   6. Eliminar todas las reservaciones por hotel
+                   7. Buscar persona por número de cédula/pasaporte
+                   8. Validar disponibilidad de una habitación en un hotel
+                   9. Salir""";
 
             opcion = Integer.parseInt(JOptionPane.showInputDialog("Digite la opcion que desea realizar: \n"+menu));
             //Dentro del switch se llama a los metodos necesarios para realizar cada una de las operaciones
@@ -40,7 +49,7 @@ public class PracticaProgramadaHoteles {
                     h.listarHoteles(hoteles);
                     break;
                 case 2:
-                    h.listarHabitacionesDisponibles(hoteles);
+                    h.submenu1(hoteles);
                     break;
                 case 3:
                     //Se verifica que si no hay datos de Persona, se les solicita llamando al metodo correspondiente
@@ -67,7 +76,7 @@ public class PracticaProgramadaHoteles {
                         JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
                     }
                     break;
-                case 5:
+                case 9:
                     System.out.println("Saliendo del programa");
                     System.exit(0);
                     break;
@@ -75,7 +84,7 @@ public class PracticaProgramadaHoteles {
                     System.out.println("Opción no válida. Inténtalo de nuevo.");
             }
             //Se sale del ciclo do while
-        }while(opcion != 5);
+        }while(opcion != 9);
     }
 }
         
