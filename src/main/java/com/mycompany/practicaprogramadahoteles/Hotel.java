@@ -7,6 +7,8 @@
 ************************************************/
 package com.mycompany.practicaprogramadahoteles;
 
+import javax.swing.JOptionPane;
+
 public class Hotel {
     //Se crean 2 atributos, nombre y una array de tipo Torre que almacena el numero de torres
     String nombre;
@@ -32,6 +34,74 @@ public class Hotel {
         }
     }
 
+
+    public static void submenu1(Hotel[] hoteles) {
+        String menu;
+        int opcion;
+        do {
+            // Se imprimen las diferentes opciones a elegir
+            menu = """
+                1. Listar Hotel Continental de New York
+                2. Listar Hotel Continental de Roma
+                3. Listar Hotel Continental de Marruecos
+                4. Listar Hotel Continental de Osaka Tokyo
+                5. Listar todos los hoteles
+                6. Salir""";
+            opcion = Integer.parseInt(JOptionPane.showInputDialog("Digite la opción que desea realizar: \n" + menu));
+            // Según la opción elegida, se llama a la función correspondiente y se pasa como parametro el indice del hotel respectivo 
+            switch (opcion) {
+                case 1:
+                    listarHabitacionesDisponibles(hoteles, 0); // Índice del hotel Continental de New York en el array hoteles
+                    break;
+                case 2:
+                    listarHabitacionesDisponibles(hoteles, 1); // Índice del hotel Continental de Roma en el array hoteles
+                    break;
+                case 3:
+                    listarHabitacionesDisponibles(hoteles, 2); // Índice del hotel Continental de Marruecos en el array hoteles
+                    break;
+                case 4:
+                    listarHabitacionesDisponibles(hoteles, 3); // Índice del hotel Continental de Osaka Tokyo en el array hoteles
+                    break;
+                case 5:
+                    listarHabitacionesDisponiblesTodos(hoteles); // Llama a la función para listar todos los hoteles
+                    break;
+                case 6:
+                    // Opción para salir del submenu
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+            }
+        } while (opcion != 6);
+    }
+
+    public static void listarHabitacionesDisponiblesTodos(Hotel[] hoteles) {
+        System.out.println("-----------------------------Listado de Habitaciones de todos los Hoteles-----------------------------\n");
+        // Utiliza un foreach para recorrer el array de hoteles y llama a la función listarHabitacionesDisponibles para cada hotel
+        for (int i = 0; i < hoteles.length; i++) {
+            listarHabitacionesDisponibles(hoteles, i);
+        }
+    }
+    
+    public static void listarHabitacionesDisponibles(Hotel[] hoteles, int indiceHotel) {
+        Hotel hotel = hoteles[indiceHotel]; // Obtiene el hotel específico según el índice proporcionado
+        // Imprime el nombre del hotel
+        System.out.println("-----------------------------Listado de Habitaciones de Hotel"+hotel.nombre+"-----------------------------\n");
+        // Este bucle recorre cada torre en el hotel actual
+        for (int i = 0; i < hotel.torres.length; i++) {
+            // Imprime el número de torre
+            System.out.println("Torre " + (i + 1) + ":");
+            // Este bucle recorre cada piso de la torre
+            for (int j = 0; j < hotel.torres[i].pisos.length; j++) {
+                // Este bucle recorre cada habitación del piso
+                for (int k = 0; k < hotel.torres[i].pisos[j].habitaciones.length; k++) {
+                    // Obtiene la referencia de la habitación actual
+                    Habitacion habitacion = hotel.torres[i].pisos[j].habitaciones[k];
+                    // Imprime la representación visual de la habitación
+                    if (habitacion.disponible) {
+                        System.out.print("[ ]"); // Habitación disponible
+                    } else {
+                        System.out.print("[X]"); // Habitación ocupada
+
     public static void listarHabitacionesDisponibles(Hotel[] hoteles) {
         // Utiliza un for each para recorrer el array de hoteles
         for (Hotel hotel : hoteles) {
@@ -53,13 +123,14 @@ public class Hotel {
                         } else {
                             System.out.print("[X]"); // Habitación ocupada
                         }
+
                     }
                     // Nueva línea después de imprimir todas las habitaciones de un piso
                     System.out.println();
                 }
-                // Nueva línea después de imprimir todas las habitaciones de una torre
-                System.out.println();
             }
+            // Nueva línea después de imprimir todas las habitaciones de una torre
+            System.out.println();
         }
     }
 
