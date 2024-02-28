@@ -60,7 +60,7 @@ public class PracticaProgramadaHoteles {
                     break;
                 case 4:
                     //Se verifica que si no hay datos de Persona, se les solicita llamando al metodo correspondiente
-                    if(persona == null){
+                    if(persona != null){
                         persona = p.ingresarDatosPersona();
                     }
                     //Se utiliza un Try Catch por si hay un error ingresando los datos solicitados
