@@ -148,4 +148,12 @@ public class Hotel {
         }
 
     }
+    
+    public static boolean esHabitacionDisponible(Hotel[] hoteles, int indiceHotel, int numeroTorre, int numeroPiso, int numeroHabitacion) {
+        Hotel hotel = hoteles[indiceHotel]; // Obtiene el hotel específico según el índice proporcionado
+        // Accede directamente a la habitación específica y retorna su disponibilidad
+        boolean disponible = hotel.torres[numeroTorre - 1].pisos[numeroPiso - 1].habitaciones[numeroHabitacion - 1].disponible;
+        return disponible;
+    }
+    
 }

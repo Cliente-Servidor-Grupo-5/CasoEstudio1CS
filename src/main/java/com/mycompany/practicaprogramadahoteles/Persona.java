@@ -26,7 +26,8 @@ public class Persona {
     Habitacion habitacionAsignada;
 
     //Se crea un constructor
-    public Persona(String nombre, String apellido1, String apellido2, int cedula, String nacionalidad, int telefono, String correo) {
+    public Persona(String nombre, String apellido1, String apellido2, int cedula, String nacionalidad, int telefono,
+            String correo, Habitacion habitacionAsignada) {
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
@@ -34,22 +35,15 @@ public class Persona {
         this.nacionalidad = nacionalidad;
         this.telefono = telefono;
         this.correo = correo;
+        this.habitacionAsignada = habitacionAsignada;
     }
 
     //Se crea un constructor vacio para las instancias
     public Persona() {
     }
     
-    
     //Se crea un metodo para solicitar los datos de la persona
-    public void ingresarDatosPersona() {
-        // Se solicita la información de la persona mediante JOptionPane
-        this.nombre = JOptionPane.showInputDialog("Ingrese el nombre de la persona:");
-        this.apellido1 = JOptionPane.showInputDialog("Ingrese el primer apellido de la persona:");
-        this.apellido2 = JOptionPane.showInputDialog("Ingrese el segundo apellido de la persona:");
-        this.nacionalidad = JOptionPane.showInputDialog("Digite la nacionalidad de la persona:");
-        this.correo = JOptionPane.showInputDialog("Ingrese el correo electrónico de la persona:");
-
+    public Persona ingresarDatosPersona() {
         // Validación de la cédula
         boolean cedulaValida = false;
         while (!cedulaValida) {
@@ -65,6 +59,13 @@ public class Persona {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese un número válido para la cédula.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+        
+        // Se solicita la información de la persona mediante JOptionPane
+        this.nombre = JOptionPane.showInputDialog("Ingrese el nombre de la persona:");
+        this.apellido1 = JOptionPane.showInputDialog("Ingrese el primer apellido de la persona:");
+        this.apellido2 = JOptionPane.showInputDialog("Ingrese el segundo apellido de la persona:");
+        this.nacionalidad = JOptionPane.showInputDialog("Digite la nacionalidad de la persona:");
+        this.correo = JOptionPane.showInputDialog("Ingrese el correo electrónico de la persona:");
         
         // Validación del teléfono
         boolean telefonoValido = false;
@@ -88,6 +89,7 @@ public class Persona {
             e.printStackTrace();
         }
         JOptionPane.showMessageDialog(null, "Los datos de la persona se han guardado correctamente.");
+        return new Persona(nombre, apellido1, apellido2, cedula, nacionalidad, telefono, correo, habitacionAsignada);
     }
     
     // Método para verificar si ya existe una persona con la misma cédula en personas.txt
