@@ -75,6 +75,30 @@ public class PracticaProgramadaHoteles {
                         JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
                     }
                     break;
+                case 8:
+                    // Solicitar datos al usuario 
+                    String inputHotel = JOptionPane.showInputDialog("Ingrese el número del hotel:");
+                    int indiceHotel = Integer.parseInt(inputHotel) - 1; // Convierte a int y ajusta para índice basado en cero
+
+                    String inputTorre = JOptionPane.showInputDialog("Ingrese el número de torre:");
+                    int numeroTorre = Integer.parseInt(inputTorre);
+
+                    String inputPiso = JOptionPane.showInputDialog("Ingrese el número de piso:");
+                    int numeroPiso = Integer.parseInt(inputPiso);
+
+                    String inputHabitacion = JOptionPane.showInputDialog("Ingrese el número de habitación:");
+                    int numeroHabitacion = Integer.parseInt(inputHabitacion);
+
+                    // Verifica si la habitación está disponible
+                    boolean disponible = Hotel.esHabitacionDisponible(hoteles, indiceHotel, numeroTorre, numeroPiso, numeroHabitacion);
+
+                    // Mostrar resultado
+                    if (disponible) {
+                        JOptionPane.showMessageDialog(null, "La habitación está disponible.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La habitación NO está disponible.");
+                    }
+                    break; 
                 case 9:
                     System.out.println("Saliendo del programa");
                     System.exit(0);
