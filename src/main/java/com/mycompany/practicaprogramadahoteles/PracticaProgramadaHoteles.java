@@ -52,9 +52,7 @@ public class PracticaProgramadaHoteles {
                     break;
                 case 3:
                     //Se verifica que si no hay datos de Persona, se les solicita llamando al metodo correspondiente
-                    if (persona == null) {
-                        p.ingresarDatosPersona();
-                    }
+                    persona = p.ingresarDatosPersona();
                     h.reservarAutomaticamente(hoteles, persona);
                     break;
                 case 4:
