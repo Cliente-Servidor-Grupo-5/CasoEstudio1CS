@@ -162,7 +162,7 @@ public class Hotel {
         System.out.println("Lo siento, no hay habitaciones disponibles para la reserva automática.");
     }
 
-    public static void reservarManualmente(Hotel[] hoteles, Persona persona, int numHotel, int numTorre, int numPiso, int numHabitacion) {
+    public static void reservarManualmente(Hotel[] hoteles, Persona persona, int numHotel, int numTorre, int numPiso, int numHabitacion, String nombreArchivo) throws IOException {
         Hotel hotel = hoteles[numHotel - 1];  //Obtiene el hotel deseado
         Torre torre = hotel.torres[numTorre - 1]; //Obtiene la torre deseada
         Piso piso = torre.pisos[numPiso - 1];   //Obtiene el piso deseado
@@ -172,6 +172,15 @@ public class Hotel {
             habitacion.disponible = false;
             persona.habitacionAsignada = habitacion;
             System.out.println("Reserva realizada con éxito.");
+            nombreArchivo = "Reservas Hotel" + hotel.nombre + ".txt";
+            String informacionReserva = "Reserva manual realizada con éxito:\n"
+                    + "  Hotel: \"" + hotel.nombre + "\"\n"
+                    + "  Torre: \"" + torre.getNumero() + "\"\n"
+                    + "  Piso: \"" + piso.getNumero() + "\"\n"
+                    + "  Habitación: \"" + habitacion.getNumero() + "\"\n"
+                    + "  Persona: \"" + persona.getNombre() + "\"\n\n";
+
+            escribirEnArchivo(nombreArchivo, informacionReserva);
         } else {
             System.out.println("Lo siento, la habitación seleccionada no está disponible.");
         }
