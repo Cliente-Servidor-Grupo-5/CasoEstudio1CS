@@ -28,7 +28,7 @@ public class Hotel {
         //Este ciclo for itera atraves de cada torre
         for (int i = 0; i < numTorres; i++) {
             //En cada iteracion se crea una nueva instancia de la clase Torre y se asigna una posicion, ademas de que se inicializa el numPisos y numHabitaciones como parametro
-            torres[i] = new Torre(numPisos, numHabitaciones);
+            torres[i] = new Torre(numPisos, numHabitaciones, i+1);
         }
     }
 
@@ -125,7 +125,6 @@ public class Hotel {
     }
 
     public static void reservarAutomaticamente(Hotel[] hoteles, Persona persona) {
-
         String[] nombresHoteles = {
             "Hotel Continental de New York",
             "Hotel Continental de Roma",
@@ -152,17 +151,15 @@ public class Hotel {
 
         if (indiceHotelSeleccionado != -1) {
             Hotel hotelSeleccionado = hoteles[indiceHotelSeleccionado];
-            // Iterar sobre las habitaciones del hotel seleccionado
             for (Torre torre : hotelSeleccionado.torres) {
                 for (Piso piso : torre.pisos) {
                     for (Habitacion habitacion : piso.habitaciones) {
-                        // Verificar si la habitación está disponible
                         if (habitacion.disponible) {
-                            habitacion.disponible = false; // Marcar la habitación como ocupada
-                            persona.habitacionAsignada = habitacion; // Asignar la habitación a la persona
+                            habitacion.disponible = false;
+                            persona.habitacionAsignada = habitacion;
                             JOptionPane.showMessageDialog(null, "Reserva automática realizada con éxito.");
-
-                            return; // Salir después de realizar la reserva
+                            escribirEnArchivo("ReservasHotel.txt", obtenerInformacionReserva(hotelSeleccionado, torre, piso, habitacion, persona));
+                            return;
                         }
                     }
                 }
@@ -172,6 +169,20 @@ public class Hotel {
             JOptionPane.showMessageDialog(null, "Selección de hotel cancelada.");
         }
     }
+    public static void escribirEnArchivo(String nombreArchivo, String informacion) {
+        boolean archivoExiste = new File(nombreArchivo).exists();
+        try (FileWriter writer = new FileWriter(nombreArchivo, true)) {
+            writer.write(informacion);
+        } catch (IOException e) {
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+    public static String obtenerInformacionReserva(Hotel hotel, Torre torre, Piso piso, Habitacion habitacion, Persona persona) {
+        return String.format("Reserva realizada:\nHotel: %s\nTorre: %d\nPiso: %d\nHabitación: %d\nPersona: %s\n\n",
+                hotel.nombre, torre.getNumero(), piso.getNumero(), habitacion.getNumero(), persona.getNombre());
+    }
+
 
     public static void mostrarMenuReserva(Hotel[] hoteles, Persona persona) {
         String[] opcionesMenu = {"Reservar manualmente", "Salir"};
@@ -198,67 +209,67 @@ public class Hotel {
     }
 
     public static void reservarManualmente(Hotel[] hoteles, Persona persona) {
-        String[] nombresHoteles = {
-            "Hotel Continental de New York",
-            "Hotel Continental de Roma",
-            "Hotel Continental de Marruecos",
-            "Hotel Continental de Osaka Tokyo"
-        };
+    String[] nombresHoteles = {
+        "Hotel Continental de New York",
+        "Hotel Continental de Roma",
+        "Hotel Continental de Marruecos",
+        "Hotel Continental de Osaka Tokyo"
+    };
 
-        String inputHotel = (String) JOptionPane.showInputDialog(null, "Seleccione un hotel:",
-                "Selección de Hotel", JOptionPane.QUESTION_MESSAGE, null, nombresHoteles, nombresHoteles[0]);
-        int numHotel = 0;
-        for (int i = 0; i < nombresHoteles.length; i++) {
-            if (inputHotel.equals(nombresHoteles[i])) {
-                numHotel = i + 1;
-                break;
-            }
-        }
-
-        int numTorre;
-        do {
-            String inputTorre = JOptionPane.showInputDialog("Ingrese el número de torre (1 o 2):");
-            numTorre = Integer.parseInt(inputTorre);
-
-            if (numTorre != 1 && numTorre != 2) {
-                JOptionPane.showMessageDialog(null, "El número de torre debe ser 1 o 2, intente de nuevo.");
-            }
-        } while (numTorre != 1 && numTorre != 2);
-
-        int numPiso;
-        do {
-            String inputPiso = JOptionPane.showInputDialog("Ingrese el número de piso (1-5):");
-            numPiso = Integer.parseInt(inputPiso);
-
-            if (numPiso < 1 || numPiso > 5) {
-                JOptionPane.showMessageDialog(null, "El número de piso debe estar entre 1 y 5. Por favor, intente de nuevo.");
-            }
-        } while (numPiso < 1 || numPiso > 5);
-
-        int numHabitacion;
-        do {
-            String inputHabitacion = JOptionPane.showInputDialog("Ingrese el número de habitación (1-10):");
-            numHabitacion = Integer.parseInt(inputHabitacion);
-
-            if (numHabitacion < 1 || numHabitacion > 10) {
-                JOptionPane.showMessageDialog(null, "El número de habitación debe estar entre 1 y 10. Por favor, intente de nuevo.");
-            }
-        } while (numHabitacion < 1 || numHabitacion > 10);
-
-        Hotel hotel = hoteles[numHotel - 1];
-        Torre torre = hotel.torres[numTorre - 1];
-        Piso piso = torre.pisos[numPiso - 1];
-        Habitacion habitacion = piso.habitaciones[numHabitacion - 1];
-
-        //Valida la disponibilidad
-        if (habitacion.disponible) {
-            habitacion.disponible = false;
-            persona.habitacionAsignada = habitacion;
-            JOptionPane.showMessageDialog(null, "Reserva realizada con éxito.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Lo siento, la habitación seleccionada no está disponible.");
+    String inputHotel = (String) JOptionPane.showInputDialog(null, "Seleccione un hotel:",
+            "Selección de Hotel", JOptionPane.QUESTION_MESSAGE, null, nombresHoteles, nombresHoteles[0]);
+    int numHotel = 0;
+    for (int i = 0; i < nombresHoteles.length; i++) {
+        if (inputHotel.equals(nombresHoteles[i])) {
+            numHotel = i + 1;
+            break;
         }
     }
+
+    int numTorre;
+    do {
+        String inputTorre = JOptionPane.showInputDialog("Ingrese el número de torre (1 o 2):");
+        numTorre = Integer.parseInt(inputTorre);
+
+        if (numTorre != 1 && numTorre != 2) {
+            JOptionPane.showMessageDialog(null, "El número de torre debe ser 1 o 2, intente de nuevo.");
+        }
+    } while (numTorre != 1 && numTorre != 2);
+
+    int numPiso;
+    do {
+        String inputPiso = JOptionPane.showInputDialog("Ingrese el número de piso (1-5):");
+        numPiso = Integer.parseInt(inputPiso);
+
+        if (numPiso < 1 || numPiso > 5) {
+            JOptionPane.showMessageDialog(null, "El número de piso debe estar entre 1 y 5. Por favor, intente de nuevo.");
+        }
+    } while (numPiso < 1 || numPiso > 5);
+
+    int numHabitacion;
+    do {
+        String inputHabitacion = JOptionPane.showInputDialog("Ingrese el número de habitación (1-10):");
+        numHabitacion = Integer.parseInt(inputHabitacion);
+
+        if (numHabitacion < 1 || numHabitacion > 10) {
+            JOptionPane.showMessageDialog(null, "El número de habitación debe estar entre 1 y 10. Por favor, intente de nuevo.");
+        }
+    } while (numHabitacion < 1 || numHabitacion > 10);
+
+    Hotel hotel = hoteles[numHotel - 1];
+    Torre torre = hotel.torres[numTorre - 1];
+    Piso piso = torre.pisos[numPiso - 1];
+    Habitacion habitacion = piso.habitaciones[numHabitacion - 1];
+
+    if (habitacion.disponible) {
+        habitacion.disponible = false;
+        persona.habitacionAsignada = habitacion;
+        JOptionPane.showMessageDialog(null, "Reserva realizada con éxito.");
+        escribirEnArchivo("ReservasHotel.txt", obtenerInformacionReserva(hotel, torre, piso, habitacion, persona));
+    } else {
+        JOptionPane.showMessageDialog(null, "Lo siento, la habitación seleccionada no está disponible.");
+    }
+}
 
     public static boolean esHabitacionDisponible(Hotel[] hoteles, int indiceHotel, int numeroTorre, int numeroPiso, int numeroHabitacion) {
         Hotel hotel = hoteles[indiceHotel]; // Obtiene el hotel específico según el índice proporcionado
@@ -266,5 +277,7 @@ public class Hotel {
         boolean disponible = hotel.torres[numeroTorre - 1].pisos[numeroPiso - 1].habitaciones[numeroHabitacion - 1].disponible;
         return disponible;
     }
+    
+    
 
 }
