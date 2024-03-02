@@ -118,7 +118,7 @@ public class Hotel {
         }
     }
 
-    public static void reservarAutomaticamente(Hotel[] hoteles, Persona persona) throws IOException {
+    public static void reservarAutomaticamente(Hotel[] hoteles, Persona persona, String nombreArchivo) throws IOException {
         //Este bucle itera sobre cada hotel
         for (Hotel hotel : hoteles) {
             //Este sobre cada torre
@@ -133,26 +133,17 @@ public class Hotel {
                             persona.habitacionAsignada = habitacion;//Asigna el campo de habitacion a la persona
                             System.out.println("Reserva automática realizada con éxito.");
 
-                            String nombreArchivo = "Reservas Hotel" + hotel.nombre + ".txt";
+                            nombreArchivo = "Reservas Hotel" + hotel.nombre + ".txt";
                             
-                            boolean archivoExiste = new File(nombreArchivo).exists();
-                            try (FileWriter writer = new FileWriter(nombreArchivo, true)) {
-                            // Escribe la información de la reserva en el archivo
-                            writer.write("Reserva automática realizada con éxito:\n");
-                            writer.write("  Hotel: \"" + hotel.nombre + "\"\n");
-                            writer.write("  Torre: \"" + torre.getNumero() + "\"\n");
-                            writer.write("  Piso: \"" + piso.getNumero() + "\"\n");
-                            writer.write("  Habitación: \"" + habitacion.getNumero() + "\"\n");
-                            writer.write("  Persona: \"" + persona.getNombre()+ "\"\n\n");
+                            String informacionReserva = "Reserva automática realizada con éxito:\n" +
+                                    "  Hotel: \"" + hotel.nombre + "\"\n" +
+                                    "  Torre: \"" + torre.getNumero() + "\"\n" +
+                                    "  Piso: \"" + piso.getNumero() + "\"\n" +
+                                    "  Habitación: \"" + habitacion.getNumero() + "\"\n" +
+                                    "  Persona: \"" + persona.getNombre() + "\"\n\n";
 
-                            System.out.println("Reserva automática realizada con éxito.");
-                        } catch (IOException e) {
-                            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+                            escribirEnArchivo(nombreArchivo, informacionReserva);
                         }
-
-
-                        }
-
                         return; // Salir después de realizar la reserva
 
                     }
@@ -162,7 +153,7 @@ public class Hotel {
         System.out.println("Lo siento, no hay habitaciones disponibles para la reserva automática.");
     }
 
-    public static void reservarManualmente(Hotel[] hoteles, Persona persona, int numHotel, int numTorre, int numPiso, int numHabitacion) {
+    public static void reservarManualmente(Hotel[] hoteles, Persona persona, int numHotel, int numTorre, int numPiso, int numHabitacion, String nombreArchivo) throws IOException {
         Hotel hotel = hoteles[numHotel - 1];  //Obtiene el hotel deseado
         Torre torre = hotel.torres[numTorre - 1]; //Obtiene la torre deseada
         Piso piso = torre.pisos[numPiso - 1];   //Obtiene el piso deseado
@@ -172,10 +163,20 @@ public class Hotel {
             habitacion.disponible = false;
             persona.habitacionAsignada = habitacion;
             System.out.println("Reserva realizada con éxito.");
+            
+            nombreArchivo = "Reservas Hotel" + hotel.nombre + ".txt";
+            String informacionReserva = "Reserva manual realizada con éxito:\n" +
+                    "  Hotel: \"" + hotel.nombre + "\"\n" +
+                    "  Torre: \"" + torre.getNumero() + "\"\n" +
+                    "  Piso: \"" + piso.getNumero() + "\"\n" +
+                    "  Habitación: \"" + habitacion.getNumero() + "\"\n" +
+                    "  Persona: \"" + persona.getNombre() + "\"\n\n";
+
+            escribirEnArchivo(nombreArchivo, informacionReserva);
         } else {
             System.out.println("Lo siento, la habitación seleccionada no está disponible.");
         }
-
+        
     }
 
     public static boolean esHabitacionDisponible(Hotel[] hoteles, int indiceHotel, int numeroTorre, int numeroPiso, int numeroHabitacion) {
@@ -185,4 +186,13 @@ public class Hotel {
         return disponible;
     }
 
+    public static void escribirEnArchivo(String nombreArchivo, String informacion) throws IOException{
+        boolean archivoExiste = new File(nombreArchivo).exists();
+        try(FileWriter writer = new FileWriter(nombreArchivo, true)){
+        writer.write(informacion);
+        }
+    }
+
+    
+    
 }
