@@ -14,18 +14,12 @@ public class Torre {
     //Se crea un atributo array de pisos
     Piso[] pisos;
     //Se crea un constructor y por medio de un ciclo for se crean las habitaciones
-    public Torre(int numPisos, int numHabitaciones, int numero){
-        this.numero = numero;
+    public Torre(int numPisos, int numHabitaciones) {
         this.pisos = new Piso[numPisos];
         for (int i = 0; i < numPisos; i++) {
-            pisos[i] = new Piso(numHabitaciones, i +1);
+            pisos[i] = new Piso(numHabitaciones);
         }
     }
 
-    public int getNumero() {
-        return numero;
-    }
-    
-    
-    
+   
 }

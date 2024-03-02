@@ -13,18 +13,14 @@ public class Piso {
     //Se crea un atributo array de habitacion
     Habitacion [] habitaciones;
     //Se crea el constructor con el parametro de numero de habitaciones y por medio de un ciclo se crea cada una de las habitaciones
-    public Piso(int numHabitaciones, int numero){
+    public Piso(int numHabitaciones){
         this.numero = numero;
         this.habitaciones = new Habitacion[numHabitaciones];
         for (int i = 0; i < numHabitaciones; i++) {
-            habitaciones[i] = new Habitacion(i+1);
+            habitaciones[i] = new Habitacion();
         }
         
         
     }
-
-    public int getNumero() {
-        return numero;
-    }
-    
 }
+
