@@ -8,11 +8,12 @@
 
 package com.mycompany.practicaprogramadahoteles;
 
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 public class PracticaProgramadaHoteles {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String menu;
         //Se crea una instancia de hotel
         Hotel h = new Hotel();

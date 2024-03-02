@@ -1,18 +1,25 @@
-/***********************************************
-* Universidad Fidelitas                        *
-* Programacion Cliente Servidor Concurrente    *
-* @author isaac, javier, mason, gabriel        *
-* Fecha: 02/02/2024                            *
-* Nombre: ClaseSemana3                         *
-************************************************/
+/** *********************************************
+ * Universidad Fidelitas                        *
+ * Programacion Cliente Servidor Concurrente
+ *
+ *
+ * @author isaac, javier, mason, gabriel * Fecha: 02/02/2024 * Nombre:
+ * ClaseSemana3 *
+ ***********************************************
+ */
 package com.mycompany.practicaprogramadahoteles;
 
+import java.io.File;
 import javax.swing.JOptionPane;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Hotel {
+
     //Se crean 2 atributos, nombre y una array de tipo Torre que almacena el numero de torres
     String nombre;
     Torre[] torres;
+
     //Se crea un constructor, el cual tiene dentro ambos atributos y tiene tambien el numero de torres, pisos y habitaciones dentro, para que se guarden dentro del objeto cuando se cree
     public Hotel(String nombre, int numTorres, int numPisos, int numHabitaciones) {
         this.nombre = nombre;
@@ -21,12 +28,13 @@ public class Hotel {
         //Este ciclo for itera atraves de cada torre
         for (int i = 0; i < numTorres; i++) {
             //En cada iteracion se crea una nueva instancia de la clase Torre y se asigna una posicion, ademas de que se inicializa el numPisos y numHabitaciones como parametro
-            torres[i] = new Torre(numPisos, numHabitaciones);
+            torres[i] = new Torre( numPisos, numHabitaciones, i+1);
         }
     }
 
     public Hotel() {
     }
+
     //A traves de este metodo se recorre un array de hoteles
     public static void listarHoteles(Hotel[] hoteles) {
         for (Hotel hotel : hoteles) {
@@ -80,7 +88,7 @@ public class Hotel {
             listarHabitacionesDisponibles(hoteles, i);
         }
     }
-    
+
     public static void listarHabitacionesDisponibles(Hotel[] hoteles, int indiceHotel) {
         Hotel hotel = hoteles[indiceHotel]; // Obtiene el hotel específico según el índice proporcionado
         // Imprime el nombre del hotel
@@ -110,7 +118,7 @@ public class Hotel {
         }
     }
 
-    public static void reservarAutomaticamente(Hotel[] hoteles, Persona persona) {
+    public static void reservarAutomaticamente(Hotel[] hoteles, Persona persona) throws IOException {
         //Este bucle itera sobre cada hotel
         for (Hotel hotel : hoteles) {
             //Este sobre cada torre
@@ -124,8 +132,29 @@ public class Hotel {
                             habitacion.disponible = false;//Marca la habitacion como ocupada
                             persona.habitacionAsignada = habitacion;//Asigna el campo de habitacion a la persona
                             System.out.println("Reserva automática realizada con éxito.");
-                            return; // Salir después de realizar la reserva
+
+                            String nombreArchivo = "Reservas Hotel" + hotel.nombre + ".txt";
+                            
+                            boolean archivoExiste = new File(nombreArchivo).exists();
+                            try (FileWriter writer = new FileWriter(nombreArchivo, true)) {
+                            // Escribe la información de la reserva en el archivo
+                            writer.write("Reserva automática realizada con éxito:\n");
+                            writer.write("  Hotel: \"" + hotel.nombre + "\"\n");
+                            writer.write("  Torre: \"" + torre.getNumero() + "\"\n");
+                            writer.write("  Piso: \"" + piso.getNumero() + "\"\n");
+                            writer.write("  Habitación: \"" + habitacion.getNumero() + "\"\n");
+                            writer.write("  Persona: \"" + persona.getNombre()+ "\"\n\n");
+
+                            System.out.println("Reserva automática realizada con éxito.");
+                        } catch (IOException e) {
+                            System.out.println("Error al escribir en el archivo: " + e.getMessage());
                         }
+
+
+                        }
+
+                        return; // Salir después de realizar la reserva
+
                     }
                 }
             }
@@ -148,12 +177,12 @@ public class Hotel {
         }
 
     }
-    
+
     public static boolean esHabitacionDisponible(Hotel[] hoteles, int indiceHotel, int numeroTorre, int numeroPiso, int numeroHabitacion) {
         Hotel hotel = hoteles[indiceHotel]; // Obtiene el hotel específico según el índice proporcionado
         // Accede directamente a la habitación específica y retorna su disponibilidad
         boolean disponible = hotel.torres[numeroTorre - 1].pisos[numeroPiso - 1].habitaciones[numeroHabitacion - 1].disponible;
         return disponible;
     }
-    
+
 }
