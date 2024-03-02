@@ -45,6 +45,9 @@ public class Persona {
         public String getNombre() {
         return nombre;
     }
+        public int getCedula() {
+        return cedula;
+    }
     //Se crea un metodo para solicitar los datos de la persona
     public Persona ingresarDatosPersona() {
         // Validación de la cédula
@@ -108,6 +111,8 @@ public class Persona {
         }
         return false;
     }
+
+    
 
 
     

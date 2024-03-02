@@ -11,7 +11,7 @@ package com.mycompany.practicaprogramadahoteles;
 public class Torre {
     
     private int numero;
-    Piso[] pisos;
+    private Piso[] pisos;
 
     public Torre(int numPisos, int numHabitaciones, int numero) {
         this.numero = numero;
@@ -24,4 +24,9 @@ public class Torre {
     public int getNumero() {
         return numero;  
     }
+
+    public Piso[] getPisos() {
+        return pisos;
+    }
+    
 }

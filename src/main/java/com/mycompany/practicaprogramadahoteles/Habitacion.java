@@ -11,11 +11,22 @@ package com.mycompany.practicaprogramadahoteles;
 public class Habitacion {
     private int numero;
     //Se crea un atributo para saber si se encuentra disponible la habitacion
-    boolean disponible = true;
-
+    private boolean disponible = true;
+    
+    
     public int getNumero() {
-        return numero;  // Cambiar según la lógica de tu aplicación
+        return numero + 1;  
     }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+    
+    
 }
 
    

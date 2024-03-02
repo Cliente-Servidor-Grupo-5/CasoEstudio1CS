@@ -2,7 +2,7 @@
 * Universidad Fidelitas                        *
 * Programacion Cliente Servidor Concurrente    *
 * @author isaac, javier, mason, gabriel        *
-* Fecha: 02/02/2024                            *
+* Fecha: 02/03/2024                            *
 * Nombre: ClaseSemana3                         *
 ************************************************/
 
@@ -75,10 +75,11 @@ public class PracticaProgramadaHoteles {
                         h.reservarManualmente(hoteles, personaManual);
                         break;
                     case "Eliminar reservación de una persona":
-                        
+                        h.eliminarReservasPorCedula(hoteles);
+                        h.eliminarReservaManualmente(hoteles);
                         break;
                     case "Eliminar todas las reservaciones por hotel":
-                        
+                        h.eliminarReservas(hoteles);
                         break;
                     case "Buscar persona por número de cédula/pasaporte":
                         

@@ -1,0 +1,16 @@
+Nombre: Isaac
+Apellido 1: Espinoza
+Apellido 2: Montero
+Cédula: 208550564
+Nacionalidad: Costarricense
+Teléfono: 84681401
+Correo: espinozamonteroisaac
+-----------------------------------------------------
+Nombre: Isaac
+Apellido 1: Espinoza
+Apellido 2: Montero
+Cédula: 109570453
+Nacionalidad: Costarricense
+Teléfono: 84681401
+Correo: espinozamonteroisaac
+-----------------------------------------------------
