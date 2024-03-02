@@ -8,12 +8,16 @@
  *********************************************** */
 package com.mycompany.practicaprogramadahoteles;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import javax.swing.JOptionPane;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hotel {
 
@@ -456,4 +460,50 @@ public class Hotel {
             JOptionPane.showMessageDialog(null, "Selección de hotel cancelada.");
         }
     }
+
+          public static List<String> buscarReservaPorCedulaEnArchivos(String cedula, List<String> nombresArchivos) {
+        List<String> reservasEncontradas = new ArrayList<>();
+
+        for (String nombreArchivo : nombresArchivos) {
+            try {
+                List<String> reservasEnArchivo = buscarEnArchivo(cedula, nombreArchivo);
+                reservasEncontradas.addAll(reservasEnArchivo);
+            } catch (IOException e) {
+                System.err.println("Error al buscar en el archivo " + nombreArchivo + ": " + e.getMessage());
+            }
+        }
+
+        return reservasEncontradas;
+    }
+
+
+        public static List<String> buscarEnArchivo(String cedula, String nombreArchivo) throws IOException {
+        List<String> reservasEncontradas = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String reservaActual = "";
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                if (linea.contains("Reserva realizada") && !reservaActual.isEmpty()) {
+                    // Se encontró una nueva reserva, agregamos la anterior a la lista
+                    reservasEncontradas.add(reservaActual);
+                    reservaActual = ""; // Limpiamos la reserva actual
+                }
+                reservaActual += linea + "\n"; // Concatenamos la línea a la reserva actual
+            }
+            // Agregamos la última reserva
+            if (!reservaActual.isEmpty()) {
+                reservasEncontradas.add(reservaActual);
+            }
+        }
+
+        return reservasEncontradas;
+    }
 }
+
+        
+    
+
+
+
+
