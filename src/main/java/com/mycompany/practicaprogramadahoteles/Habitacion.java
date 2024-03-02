@@ -9,6 +9,17 @@ package com.mycompany.practicaprogramadahoteles;
 
 
 public class Habitacion {
+    private int numero;
     //Se crea un atributo para saber si se encuentra disponible la habitacion
     Boolean disponible = true;
+
+    public Habitacion(int numero) {
+        this.numero = numero;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+    
+    
 }

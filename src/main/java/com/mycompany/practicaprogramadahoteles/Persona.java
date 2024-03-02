@@ -42,6 +42,9 @@ public class Persona {
     public Persona() {
     }
     
+        public String getNombre() {
+        return nombre;
+    }
     //Se crea un metodo para solicitar los datos de la persona
     public Persona ingresarDatosPersona() {
         // Validación de la cédula
@@ -66,6 +69,7 @@ public class Persona {
         this.apellido2 = JOptionPane.showInputDialog("Ingrese el segundo apellido de la persona:");
         this.nacionalidad = JOptionPane.showInputDialog("Digite la nacionalidad de la persona:");
         this.correo = JOptionPane.showInputDialog("Ingrese el correo electrónico de la persona:");
+        
         
         // Validación del teléfono
         boolean telefonoValido = false;
@@ -104,5 +108,7 @@ public class Persona {
         }
         return false;
     }
+
+
     
 }
