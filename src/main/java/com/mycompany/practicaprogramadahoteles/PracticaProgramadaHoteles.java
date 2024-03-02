@@ -69,7 +69,7 @@ public class PracticaProgramadaHoteles {
                         // Registrar reservación a una persona automáticamente
                         Persona personaAuto = p.ingresarDatosPersona();
                         h.reservarAutomaticamente(hoteles, personaAuto);
-                        break;
+                        break;  
                     case "Registrar reservación a una persona manualmente":
                         // Registrar reservación a una persona manualmente
                         Persona personaManual = p.ingresarDatosPersona();
@@ -89,17 +89,18 @@ public class PracticaProgramadaHoteles {
                         nombresArchivos.add("ReservasHotel_ Continental de Osaka Tokyo.txt");
                         nombresArchivos.add("ReservasHotel_ Continental de Roma .txt");
 
-                        String cedula = JOptionPane.showInputDialog("ingrese la cedula que necesitav encontrar");
+                        String cedula = JOptionPane.showInputDialog("Ingrese la cédula que desea encontrar");
 
                         List<String> reservasEncontradas = h.buscarReservaPorCedulaEnArchivos(cedula, nombresArchivos);
 
                         if (reservasEncontradas.isEmpty()) {
-                            System.out.println("No se encontraron reservas para la cédula especificada.");
+                            JOptionPane.showMessageDialog(null, "No se encontraron reservas para la cédula especificada.");
                         } else {
-                            System.out.println("Reservas encontradas:");
+                            StringBuilder mensaje = new StringBuilder("Reservas encontradas:\n");
                             for (String reserva : reservasEncontradas) {
-                                System.out.println(reserva);
+                                mensaje.append(reserva).append("\n");
                             }
+                            JOptionPane.showMessageDialog(null, mensaje.toString());
                         }
 
                         break;

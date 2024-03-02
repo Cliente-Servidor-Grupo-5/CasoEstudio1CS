@@ -13,9 +13,12 @@ public class Habitacion {
     //Se crea un atributo para saber si se encuentra disponible la habitacion
     private boolean disponible = true;
     
+    public Habitacion(int numero) {
+        this.numero = numero;
+    }
     
     public int getNumero() {
-        return numero + 1;  
+        return numero;
     }
 
     public boolean isDisponible() {

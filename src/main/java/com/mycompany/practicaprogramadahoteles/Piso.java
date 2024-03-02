@@ -17,7 +17,7 @@ public class Piso {
         this.numero = numero;
         this.habitaciones = new Habitacion[numHabitaciones];
         for (int i = 0; i < numHabitaciones; i++) {
-            habitaciones[i] = new Habitacion();
+            habitaciones[i] = new Habitacion(i + 1); // Pasar el número de habitación
         }
     }
 
@@ -28,6 +28,30 @@ public class Piso {
     public Habitacion[] getHabitaciones() {
         return habitaciones;
     }
-    
-    
 }
+
+    /*    public Piso(int numHabitaciones, int numero, int inicioNumeroHabitacion) {
+        this.numero = numero;
+        this.inicioNumeroHabitacion = inicioNumeroHabitacion;
+        this.finNumeroHabitacion = inicioNumeroHabitacion + numHabitaciones - 1;
+        this.habitaciones = new Habitacion[numHabitaciones];
+        for (int i = 0; i < numHabitaciones; i++) {
+            habitaciones[i] = new Habitacion(inicioNumeroHabitacion + i);
+        }
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public Habitacion[] getHabitaciones() {
+        return habitaciones;
+    }
+
+    public int getInicioNumeroHabitacion() {
+        return inicioNumeroHabitacion;
+    }
+
+    public int getFinNumeroHabitacion() {
+        return finNumeroHabitacion;
+    }*/

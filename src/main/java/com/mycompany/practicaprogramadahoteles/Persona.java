@@ -7,12 +7,15 @@
 ************************************************/
 package com.mycompany.practicaprogramadahoteles;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import javax.swing.JOptionPane;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 
 public class Persona {
     //Se crean los atributos
@@ -112,8 +115,49 @@ public class Persona {
         return false;
     }
 
-    
-
-
+        // Método para asignar el número de habitación después de la reserva
+    public void asignarNumeroHabitacion(int numeroHabitacion) {
+        try {
+            // Nombre del archivo de personas
+            String nombreArchivo = "personas.txt";
+            
+            // Leer el archivo y buscar la entrada correspondiente a esta persona
+            FileReader fr = new FileReader(nombreArchivo);
+            BufferedReader br = new BufferedReader(fr);
+            StringBuilder contenido = new StringBuilder();
+            String linea;
+            boolean encontrado = false;
+            while ((linea = br.readLine()) != null) {
+                // Si la línea contiene la cédula de esta persona
+                if (linea.contains("Cédula: " + this.cedula)) {
+                    // Agregar la línea con la habitación asignada actualizada
+                    contenido.append(linea).append("\n");
+                    contenido.append("Habitación Asignada: ").append(numeroHabitacion).append("\n");
+                    encontrado = true;
+                } else {
+                    contenido.append(linea).append("\n");
+                }
+            }
+            br.close();
+            
+            if (!encontrado) {
+                // Si no se encontró la persona en el archivo, lanzar una excepción o manejar el caso según sea necesario
+                throw new IOException("No se encontró la persona en el archivo.");
+            }
+            
+            // Escribir el contenido actualizado de vuelta al archivo
+            FileWriter fw = new FileWriter(nombreArchivo);
+            fw.write(contenido.toString());
+            fw.close();
+            
+            // Actualizar el atributo habitacionAsignada
+            this.habitacionAsignada = new Habitacion(numeroHabitacion);
+            
+            System.out.println("Número de habitación asignado correctamente.");
+        } catch (IOException e) {
+            // Manejar cualquier excepción de IO
+            System.err.println("Error al asignar el número de habitación: " + e.getMessage());
+        }
+    }
     
 }

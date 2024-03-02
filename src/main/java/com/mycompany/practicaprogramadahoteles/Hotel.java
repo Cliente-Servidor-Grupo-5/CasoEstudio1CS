@@ -174,6 +174,8 @@ public class Hotel {
                             // Escribir en el archivo de reservas del hotel
                             try {
                                 escribirEnArchivo(nombreArchivo, obtenerInformacionReserva(hotelSeleccionado, torre, piso, habitacion, persona));
+                                // Llamar al método para asignar el número de habitación a la persona
+                                persona.asignarNumeroHabitacion(habitacion.getNumero());
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "Error al escribir en el archivo de reservas: " + e.getMessage());
                             }
@@ -198,7 +200,7 @@ public class Hotel {
     }
 
     public static String obtenerInformacionReserva(Hotel hotel, Torre torre, Piso piso, Habitacion habitacion, Persona persona) {
-        return String.format("Reserva realizada:\nHotel: %s\nTorre: %d\nPiso: %d\nHabitación: %d\nPersona: %s\n\n",
+        return String.format("Reserva realizada:\nHotel: %s\nTorre: %d\nPiso: %d\nHabitación: %d\nCédula/Pasaporte: %s",
                 hotel.nombre, torre.getNumero(), piso.getNumero(), habitacion.getNumero(), persona.getCedula());
     }
 
@@ -282,6 +284,8 @@ public class Hotel {
         if (habitacion.isDisponible()) {
             habitacion.setDisponible(false);
             persona.habitacionAsignada = habitacion;
+            
+
             JOptionPane.showMessageDialog(null, "Reserva realizada con éxito.");
 
             // Formar el nombre del archivo de reservas para el hotel seleccionado
@@ -290,6 +294,8 @@ public class Hotel {
             // Escribir en el archivo de reservas del hotel
             try {
                 escribirEnArchivo(nombreArchivo, obtenerInformacionReserva(hotel, torre, piso, habitacion, persona));
+                // Llamar al método para asignar el número de habitación a la persona
+                persona.asignarNumeroHabitacion(habitacion.getNumero());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al escribir en el archivo de reservas: " + e.getMessage());
             }
@@ -461,15 +467,35 @@ public class Hotel {
         }
     }
 
-          public static List<String> buscarReservaPorCedulaEnArchivos(String cedula, List<String> nombresArchivos) {
+    public static List<String> buscarReservaPorCedulaEnArchivos(String cedula, List<String> nombresArchivos) {
         List<String> reservasEncontradas = new ArrayList<>();
 
         for (String nombreArchivo : nombresArchivos) {
-            try {
-                List<String> reservasEnArchivo = buscarEnArchivo(cedula, nombreArchivo);
-                reservasEncontradas.addAll(reservasEnArchivo);
+            try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+                String linea;
+                boolean encontrada = false;
+                StringBuilder reserva = new StringBuilder();
+
+                while ((linea = br.readLine()) != null) {
+                    if (linea.startsWith("Cédula/Pasaporte: ")) {
+                        String cedulaReserva = linea.substring(18).trim();
+                        if (cedulaReserva.equals(cedula)) {
+                            encontrada = true;
+                        }
+                    }
+
+                    reserva.append(linea).append("\n");
+
+                    if (linea.equals("---")) {
+                        if (encontrada) {
+                            reservasEncontradas.add(reserva.toString());
+                            encontrada = false;
+                        }
+                        reserva.setLength(0);
+                    }
+                }
             } catch (IOException e) {
-                System.err.println("Error al buscar en el archivo " + nombreArchivo + ": " + e.getMessage());
+                System.err.println("Error al leer el archivo: " + nombreArchivo);
             }
         }
 
