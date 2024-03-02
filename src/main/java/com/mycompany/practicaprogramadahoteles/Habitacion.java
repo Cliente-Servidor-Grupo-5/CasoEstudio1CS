@@ -11,7 +11,12 @@ package com.mycompany.practicaprogramadahoteles;
 public class Habitacion {
     private int numero;
     //Se crea un atributo para saber si se encuentra disponible la habitacion
-    Boolean disponible = true;
+    boolean disponible = true;
+
+    public int getNumero() {
+        return numero;  // Cambiar según la lógica de tu aplicación
+    }
+}
 
    
-}
+
