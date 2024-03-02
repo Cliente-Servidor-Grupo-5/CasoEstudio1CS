@@ -54,7 +54,7 @@ public class PracticaProgramadaHoteles {
                 case 3:
                     //Se verifica que si no hay datos de Persona, se les solicita llamando al metodo correspondiente
                     persona = p.ingresarDatosPersona();
-                    h.reservarAutomaticamente(hoteles, persona, "Reserva Hotel");
+                    h.reservarAutomaticamente(hoteles, persona);
                     break;
                 case 4:
                     //Se verifica que si no hay datos de Persona, se les solicita llamando al metodo correspondiente
@@ -67,7 +67,7 @@ public class PracticaProgramadaHoteles {
                         int numTorre = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de torre: "));
                         int numPiso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso: "));
                         int numHabitacion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion: "));
-                        Hotel.reservarManualmente(hoteles, persona, numHotel, numTorre, numPiso, numHabitacion, "Reserva Hotel");
+                        Hotel.reservarManualmente(hoteles, persona, numHotel, numTorre, numPiso, numHabitacion);
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Datos ingresados erroneamente!\n\nVolviendo al menu principal", "ERROR", JOptionPane.ERROR_MESSAGE);
                     } finally {
