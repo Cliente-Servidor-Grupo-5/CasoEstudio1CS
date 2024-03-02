@@ -37,9 +37,10 @@ public class Hotel {
 
     //A traves de este metodo se recorre un array de hoteles
     public static void listarHoteles(Hotel[] hoteles) {
-        for (Hotel hotel : hoteles) {
-            System.out.println("Hotel" + hotel.nombre);
-        }
+        JOptionPane.showMessageDialog(null, "Hotel Continental de New York\n" +
+                "Hotel Continental de Roma\n"+
+                "Hotel Continental de Marruecos\n"+
+                "Hotel Continental de Osaka Tokyo\n");
     }
 
     public static void submenu1(Hotel[] hoteles) {
