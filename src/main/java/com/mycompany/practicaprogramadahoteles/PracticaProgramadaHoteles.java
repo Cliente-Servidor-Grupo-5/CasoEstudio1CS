@@ -1,20 +1,23 @@
-/***********************************************
-* Universidad Fidelitas                        *
-* Programacion Cliente Servidor Concurrente    *
-* @author isaac, javier, mason, gabriel        *
-* Fecha: 02/03/2024                            *
-* Nombre: ClaseSemana3                         *
-************************************************/
-
+/** *********************************************
+ * Universidad Fidelitas                        *
+ * Programacion Cliente Servidor Concurrente
+ *
+ *
+ * @author isaac, javier, mason, gabriel * Fecha: 02/03/2024 * Nombre:
+ * ClaseSemana3 *
+ ***********************************************
+ */
 package com.mycompany.practicaprogramadahoteles;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PracticaProgramadaHoteles {
 
     public static void main(String[] args) throws IOException {
-          String menu;
+        String menu;
         //Se crea una instancia de hotel
         Hotel h = new Hotel();
         //Se crea una instancia de persona
@@ -42,7 +45,6 @@ public class PracticaProgramadaHoteles {
                 "Salir"
             };
 
-            
             String opcionSeleccionada = (String) JOptionPane.showInputDialog(
                     null,
                     "Seleccione la opción que desea realizar:",
@@ -53,7 +55,6 @@ public class PracticaProgramadaHoteles {
                     opcionesMenu[0]
             );
 
-            
             if (opcionSeleccionada != null) {
                 switch (opcionSeleccionada) {
                     case "Listar todos los hoteles de la cadena":
@@ -82,13 +83,54 @@ public class PracticaProgramadaHoteles {
                         h.eliminarReservas(hoteles);
                         break;
                     case "Buscar persona por número de cédula/pasaporte":
-                        
+                        List<String> nombresArchivos = new ArrayList<>();
+                        nombresArchivos.add("ReservasHotel_ Continental de Marruecos.txt");
+                        nombresArchivos.add("ReservasHotel_ Continental de New York.txt");
+                        nombresArchivos.add("ReservasHotel_ Continental de Osaka Tokyo.txt");
+                        nombresArchivos.add("ReservasHotel_ Continental de Roma .txt");
+
+                        String cedula = JOptionPane.showInputDialog("ingrese la cedula que necesitav encontrar");
+
+                        List<String> reservasEncontradas = h.buscarReservaPorCedulaEnArchivos(cedula, nombresArchivos);
+
+                        if (reservasEncontradas.isEmpty()) {
+                            System.out.println("No se encontraron reservas para la cédula especificada.");
+                        } else {
+                            System.out.println("Reservas encontradas:");
+                            for (String reserva : reservasEncontradas) {
+                                System.out.println(reserva);
+                            }
+                        }
+
                         break;
+
                     case "Validar disponibilidad de una habitación en un hotel":
-                        
+                        // Solicitar datos al usuario 
+                        String inputHotel = JOptionPane.showInputDialog("Ingrese el número del hotel (1-4):");
+                        int indiceHotel = Integer.parseInt(inputHotel) - 1; // Convierte a int y ajusta para índice basado en cero
+
+                        String inputTorre = JOptionPane.showInputDialog("Ingrese el número de torre (1-2):");
+                        int numeroTorre = Integer.parseInt(inputTorre);
+
+                        String inputPiso = JOptionPane.showInputDialog("Ingrese el número de piso (1-5):");
+                        int numeroPiso = Integer.parseInt(inputPiso);
+
+                        String inputHabitacion = JOptionPane.showInputDialog("Ingrese el número de habitación (1-10):");
+                        int numeroHabitacion = Integer.parseInt(inputHabitacion);
+
+                        // Verifica si la habitación está disponible
+                        boolean disponible = Hotel.esHabitacionDisponible(hoteles, indiceHotel, numeroTorre, numeroPiso, numeroHabitacion);
+
+                        // Mostrar resultado
+                        if (disponible) {
+                            JOptionPane.showMessageDialog(null, "La habitación está disponible.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "La habitación NO está disponible.");
+                        }
+
                         break;
                     case "Salir":
-                        
+
                         JOptionPane.showMessageDialog(null, "Saliendo del programa");
                         salir = true; // Establece salir como verdadero para salir del bucle
                         break;
@@ -96,6 +138,7 @@ public class PracticaProgramadaHoteles {
                         JOptionPane.showMessageDialog(null, "Opción no válida. Inténtalo de nuevo.");
                 }
             }
-        } while (!salir); 
+
+        } while (!salir);
     }
-    }
+}

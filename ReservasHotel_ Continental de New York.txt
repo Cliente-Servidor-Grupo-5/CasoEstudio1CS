@@ -1,0 +1,16 @@
+Reserva realizada:
+Hotel:  Continental de New York
+Torre: 1
+Piso: 1
+Habitación: 1
+Persona: 1234
+---
+Reserva realizada:
+Hotel:  Continental de New York
+Torre: 1
+Piso: 1
+Habitación: 1
+Persona: 1111
+
+
+---
